@@ -33,7 +33,7 @@ BEGIN
   END;  
 
    CREATE OR REPLACE TRIGGER SumatoriaTrigger
-     BEFORE INSERT ON Sumat FOR EACH ROW 
+     BEFORE INSERT ON findsumjenifgar FOR EACH ROW 
        DECLARE
      calculardato VARCHAR2(4000);
    BEGIN
