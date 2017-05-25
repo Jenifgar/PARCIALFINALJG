@@ -1,0 +1,43 @@
+CREATE TABLE findsumjenifgar
+(
+  BASEVALUE VARCHAR2(5) NOT NULL,
+  Resultad VARCHAR2(4000) NOT NULL
+);  
+
+CREATE OR REPLACE FUNCTION sumafindjenni(valor IN NUMBER)
+ 
+ 
+ RETURN VARCHAR IS
+
+   calculardato NUMBER := 0;
+   
+BEGIN  
+
+      FOR i IN 0..valor  LOOP    
+           IF MOD(i, 3) = 0 OR
+              MOD(i, 5) = 0 
+         THEN
+            calculardato := calculardato + i;
+        END IF;
+        
+       END LOOP;
+       
+    RETURN calculardato;
+    
+       EXCEPTION    
+   
+  WHEN OTHERS  THEN
+  
+    RETURN 'ORA-0'||SUBSTR(SQLCODE,2,4);
+    
+  END;  
+
+   CREATE OR REPLACE TRIGGER SumatoriaTrigger
+     BEFORE INSERT ON Sumat FOR EACH ROW 
+       DECLARE
+     calculardato VARCHAR2(4000);
+   BEGIN
+        calculardato := sumafindjenni(:new.BASEVALUE);
+        
+         :new.Resultad := calculardato;
+    END;
